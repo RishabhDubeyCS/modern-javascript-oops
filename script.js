@@ -1,146 +1,70 @@
+//   Polymorphism means the same method name behaves differently depending on the object or context.
+// Method overriding
 
-// JavaScript Classes User Class Most common 
+// Dynamic typing
 
-class User {
-    constructor (id , name , role ){
-        this.id = id ;
-        this.name = name;
-        this.role = role ;
+// Function behavior based on input
 
-    }
-    getProfile (){
-        return `${this.name } (${this.role})`;
+// Duck typing
 
-    }
-
-}
-const user1 = new User(1, "Rishabh ", "Student"
-);
-console.log(user1.getProfile());
-
-const user2 = new User(2, "Bhavesh", "Student");
-console.log(user2.getProfile());
-
-// Used in: Auth, dashboards, profiles
-
-// Bank Account Class ( Encapsulatin + Real app)
-class BankAccount {
-    #balance;
-    constructor (initialBalance = 0 ){
-        this.#balance = initialBalance;
-
-    }
-    deposit (amount){
-        this.#balance  += amount;
-        
-    }
-withdraw (amount ){
-    if (amount <=this.#balance){
-        this.#balance -= amount;
+class User{
+    login(){
+        console.log("User logged in ");
     }
 
 }
-getBalance(){
-    return this.#balance;
-}
-
-}
-
-const acc = new BankAccount (500);
-acc.deposit (200);
-console.log (acc.getBalance());
-acc.withdraw (100);
-console.log (acc.getBalance());
-
-// Used in: Banking, wallets, fintech  
-
-
-// Product Class (E-commerce Pattern)
-
-class Product {
-     constructor (id, name , price ){
-        this.id = id ;
-        this.name =name;
-        this.price = price ;
-
-     }
-     applyDiscount(precent){
-        this.price -= (this.price *precent)/100;
-
-     }
-
-
-}
-const p= new Product (1, "Laptop", 50000);
-p.applyDiscount(20);
-
-console.log (p.price);
-
-// Shopping apps, carts
-
-
-// Employee Class (HR Systems)
-
-class Employee{
-    constructor (id, name, position, salary){
-        this.id  =id ;
-        this.name = name ;
-        this.position = position ;
-        this.salary = salary || 0 ;
-    }
-    getAnnualSalary(){
-        return this.salary *12;
+class Admin extends User {
+    login (){
+        console.log("Admin logged in with full access");
 
     }
 }
+const u = new User ();
+const a = new Admin ();
 
-const emp = new Employee (1, "Rishabh", "Developer", 4000);
+u.login();
+a.login();
+//  Same method login()
+//  Different behavior
+//  Classic polymorphism
 
-console.log (emp.getAnnualSalary());
+// Polymorphism via Parent Reference
+class Shape {
+    area (){
+        console.log("Area not defined")
+    }
 
-
-// Used in: Payroll, HR tools
-
-// Logger Class (Utility Pattern)
-
-class Logger {
-    static log (message){
-        console.log(`[LOG]: ${message}`);
+}
+class Rectangle extends Shape{
+    area(){
+        console.log("Area = Length * Width");
     }
 }
-Logger.log ("This is a log message");
-
-// Used in: Debugging, monitoring
-//  Interview keyword: static method
-
-// Cart Class (State Management)
-
-class Cart{
-
-    constructor (){
-        this.items =[];
-    }
-    addItem(item){
-        this.items.push(item);
-
-    }
-    getItems(){
-        return this.items;
+class Circle extends Shape{
+    area (){
+        console.log("Area = π * r * r");
     }
 }
-
-const cart = new Cart ();
-cart.addItem ("Laptop");
-cart.addItem ("Mouse");
-console.log (cart.getItems());
-
-// React state, backend APIs
-
-// Config Class (Read Only Pattern0
-
-class AppConfig{
-    static API_URL = "https://api.example.com";
-    static TIMEOUT = 5000;
+function calculateArea (shape){
+    shape.area();
 }
-console.log (AppConfig.API_URL);
-console.log (AppConfig.TIMEOUT);
+
+calculateArea(new Rectangle());
+calculateArea(new Circle());
+// Interview likes this pattern
+
+// Function Polymorphism (Dynamic Typing)
+function add (a, b){
+    return a + b ;
+}
+console.log(add (2, 3)); // 5
+console.log(add ("Hello ", "World")); // Hello World
+console.log(add ([1, 2], [3, 4])); // [1,2,3,4]
+
+
+//  Same function
+//  Different behavior
+//  JavaScript-specific polymorphism
+
+// Duck Typing
+
